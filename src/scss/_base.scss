@@ -124,6 +124,14 @@ h8 {
   font-weight: $h8-font-weight;
 }
 
+p {
+  font-size: $default-font-size;
+  letter-spacing: $default-letter-spacing;
+  line-height: $default-line-height;
+  font-weight: $default-font-weight;
+  color: $brand-03;
+}
+
 b,
 strong {
   font-weight: $font-bold;

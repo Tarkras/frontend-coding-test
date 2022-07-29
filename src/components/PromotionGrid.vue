@@ -11,11 +11,13 @@
         >
         </paginate-buttons>
       </div>
-      <promtion-card
-        v-for="promotion in promotions"
-        :key="promotion.id"
-        :promotion="promotion"
-      ></promtion-card>
+      <div class="promotions-grid__card-container">
+        <promtion-card
+          v-for="promotion in promotions"
+          :key="promotion.id"
+          :promotion="promotion"
+        ></promtion-card>
+      </div>
     </div>
   </div>
 </template>
@@ -64,6 +66,14 @@ export default {
 <style lang="scss" scoped>
 .promotions-grid {
   max-width: 100%;
+  height: 100%;
+
+  &__card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 }
 .pagination-container{
   border: 1px solid red;

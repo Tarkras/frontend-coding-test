@@ -16,9 +16,13 @@
 .app-column{
   max-width: 1200px;
   background: #fff;
-  padding: 60px;
+  padding: 20px;
   margin: 0px auto;
   border-radius: 5px;
+
+  @media (min-width: 650px) {
+    padding: 40px;
+  }
 }
 @media only screen and (max-width: 1200px) {
   .app-column{
