@@ -14,7 +14,7 @@
   min-height: 100vh;
 }
 .app-column{
-  max-width: 1200px;
+  max-width: 1120px;
   background: #fff;
   padding: 20px;
   margin: 0px auto;

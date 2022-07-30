@@ -5,9 +5,14 @@
         <paginate-buttons
           :page-count="numePages"
           :click-handler="onPageClick"
-          :prev-text="'Prev'"
-          :next-text="'Next'"
-          :container-class="'pagination-container'"
+          :prev-text="'<'"
+          :next-text="'>'"
+          :container-class="'pagination__container'"
+          :active-class="'pagination__active'"
+          :page-class="'pagination__list-item'"
+          :page-link-class="'pagination__links'"
+          :prev-link-class="'pagination__link--prev'"
+          :next-link-class="'pagination__link--next'"
         >
         </paginate-buttons>
       </div>
@@ -63,7 +68,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .promotions-grid {
   max-width: 100%;
   height: 100%;
@@ -73,9 +78,43 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+    gap: 20px;
   }
 }
-.pagination-container{
-  border: 1px solid red;
+.pagination{
+  color: #B1B1B1;
+
+  &__container {
+    display: flex;
+    margin: 22px auto;
+    width: 200px;
+    justify-content: space-around;
+
+    @media (min-width: 650px) {
+      margin: 30px auto;
+    }
+  }
+
+  &__active {
+    background-color: #00B0B9;
+    border-radius: 50px;
+    color: white !important;
+  }
+
+  &__list-item {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+  }
+
+  &__links {
+    color: #B1B1B1;
+  }
+
+  &__link--next, &__link--prev {
+    width: 4px;
+    height: 6px;
+    color: #B1B1B1;
+  }
 }
 </style>

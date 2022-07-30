@@ -67,7 +67,7 @@ export default {
 <style lang="scss" scoped>
 .card{
   border: 1px solid #444;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
   max-width: 100%;
   border: 1px solid rgba(197, 199, 205, 0.3);
   border-radius: 6px;
@@ -137,8 +137,5 @@ export default {
   &__promotion-dates {
     color: #019097;
   }
-}
-.product-image{
-  width: 200px;
 }
 </style>

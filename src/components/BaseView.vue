@@ -19,7 +19,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .title{
-  margin-top: 0px;
-  margin-bottom: 60px;
+  margin-top: 40px;
+  margin-bottom: 25px;
+
+  @media (min-width: 650px) {
+    margin-top: 20px;
+    margin-bottom: 60px;
+  }
 }
 </style>

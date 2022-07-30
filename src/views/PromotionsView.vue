@@ -126,12 +126,34 @@ export default {
 
 <style lang="scss" scoped>
 .row-filters {
-  height: 50px;
-  margin-bottom: 45px;
+  width: 100%;
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 10px;
+
+  @media (min-width: 780px) {
+    flex-direction: row;
+    gap: 20px;
+  }
+
   .select {
-    width: 400px;
+    width: 100%;
+
+    @media (min-width: 650px) {
+      width: 100%;
+    }
+
+    @media (min-width: 780px) {
+      width: 335px;
+    }
+
+    @media (min-width: 1100px) {
+      width: 292px;
+    }
+
+    @media (min-width: 1200px) {
+      width: 360px;
+    }
   }
 }
 </style>
