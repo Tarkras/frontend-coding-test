@@ -30,12 +30,14 @@
 
 <script>
 import PromtionCard from '@/components/PromotionCard'
-const PROMO_PER_PAGE = 9
+
 export default {
   components: { PromtionCard },
   data () {
     return {
-      page: 1
+      page: 1,
+      innerWidth: window.innerWidth,
+      totalPromotionsPerPage: null
     }
   },
   props: {
@@ -56,6 +58,12 @@ export default {
       }
     }
   },
+  created () {
+    this.calculateTotaltotalPromotionsPerPage()
+  },
+  mounted () {
+    window.addEventListener('resize', this.calculateTotaltotalPromotionsPerPage)
+  },
   methods: {
     onPageClick (selectedPage) {
       this.page = selectedPage
@@ -73,31 +81,48 @@ export default {
         default:
           return promotions
       }
+    },
+    calculatePageElements (filteredValue) {
+      return filteredValue.slice((this.page - 1) * this.totalPromotionsPerPage, this.page * this.totalPromotionsPerPage)
+    },
+    calculateTotaltotalPromotionsPerPage () {
+      this.innerWidth = window.innerWidth
+      if (this.innerWidth >= 1000) {
+        this.totalPromotionsPerPage = 9
+      } else if (this.innerWidth >= 650) {
+        this.totalPromotionsPerPage = 6
+      } else {
+        this.totalPromotionsPerPage = 4
+      }
     }
   },
   computed: {
     numePages () {
-      return Math.ceil(this.promotions.length / PROMO_PER_PAGE)
+      return Math.ceil(this.promotions.length / this.totalPromotionsPerPage)
     },
     filterPromotions () {
-      let filteredValue
+      let filteredValue = []
 
       if (this.filterValue === null) {
-        return this.sortPromotions(this.promotions)
+        filteredValue = this.sortPromotions(this.promotions)
+        return this.calculatePageElements(filteredValue)
       }
 
       switch (this.filterValue.value.type) {
         case '>':
-          filteredValue = this.promotions
-            .filter(promotion => promotion[this.filterValue.value.field] > this.filterValue.value.value)
-          return this.sortPromotions(filteredValue)
+          filteredValue = this.sortPromotions(this.promotions
+            .filter(promotion => promotion[this.filterValue.value.field] > this.filterValue.value.value))
+          break
         case '<':
-          filteredValue = this.promotions
-            .filter(promotion => promotion[this.filterValue.value.field] < this.filterValue.value.value)
-          return this.sortPromotions(filteredValue)
+          filteredValue = this.sortPromotions(this.promotions
+            .filter(promotion => promotion[this.filterValue.value.field] < this.filterValue.value.value))
+          break
         default:
-          return this.sortPromotions(this.promotions)
+          filteredValue = this.sortPromotions(this.promotions)
+          break
       }
+
+      return this.calculatePageElements(filteredValue)
     }
   }
 }
@@ -114,6 +139,11 @@ export default {
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 20px;
+    margin-bottom: 60px;
+
+    @media (min-width: 650px) {
+      margin-bottom: 0;
+    }
   }
 }
 .pagination{
@@ -133,23 +163,45 @@ export default {
   &__active {
     background-color: #00B0B9;
     border-radius: 50px;
-    color: white !important;
+
+    a {
+      color: white;
+    }
   }
 
   &__list-item {
     width: 20px;
     height: 20px;
     text-align: center;
+
+    a {
+      font-size: 13px;
+      line-height: 20px;
+    }
   }
 
   &__links {
     color: #B1B1B1;
   }
 
-  &__link--next, &__link--prev {
+  &__link--next {
+    width: 4px;
+    height: 6px;
+    color: #B1B1B1;
+  }
+
+  &__link--prev {
     width: 4px;
     height: 6px;
     color: #B1B1B1;
   }
 }
+</style>
+
+<style lang="scss" scoped>
+  .pagination__active {
+    .pagination__links {
+      color: red;
+    }
+  }
 </style>
