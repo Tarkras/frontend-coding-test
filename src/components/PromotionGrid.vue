@@ -4,6 +4,7 @@
       <div class="pagination">
         <paginate-buttons
           :page-count="numePages"
+          :page-range="5"
           :click-handler="onPageClick"
           :prev-text="'<'"
           :next-text="'>'"
@@ -18,7 +19,7 @@
       </div>
       <div class="promotions-grid__card-container">
         <promtion-card
-          v-for="promotion in promotions"
+          v-for="promotion in filterPromotions"
           :key="promotion.id"
           :promotion="promotion"
         ></promtion-card>
@@ -58,11 +59,45 @@ export default {
   methods: {
     onPageClick (selectedPage) {
       this.page = selectedPage
+    },
+    sortPromotions (promotions) {
+      if (this.sortValue === null) {
+        return promotions
+      }
+
+      switch (this.sortValue.value.value) {
+        case 'asc':
+          return promotions.sort((a, b) => a[this.sortValue.value.field] - b[this.sortValue.value.field])
+        case 'desc':
+          return promotions.sort((a, b) => b[this.sortValue.value.field] - a[this.sortValue.value.field])
+        default:
+          return promotions
+      }
     }
   },
   computed: {
     numePages () {
       return Math.ceil(this.promotions.length / PROMO_PER_PAGE)
+    },
+    filterPromotions () {
+      let filteredValue
+
+      if (this.filterValue === null) {
+        return this.sortPromotions(this.promotions)
+      }
+
+      switch (this.filterValue.value.type) {
+        case '>':
+          filteredValue = this.promotions
+            .filter(promotion => promotion[this.filterValue.value.field] > this.filterValue.value.value)
+          return this.sortPromotions(filteredValue)
+        case '<':
+          filteredValue = this.promotions
+            .filter(promotion => promotion[this.filterValue.value.field] < this.filterValue.value.value)
+          return this.sortPromotions(filteredValue)
+        default:
+          return this.sortPromotions(this.promotions)
+      }
     }
   }
 }
