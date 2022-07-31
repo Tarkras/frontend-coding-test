@@ -32,3 +32,15 @@ export async function fetchProducts ({ commit }) {
     commit('IS_FETCHING', false)
   }
 }
+
+export async function postNewProduct ({ commit }, product) {
+  try {
+    commit('RESET_ERROR', true)
+    await axios.get('/promotions', product)
+  } catch (e) {
+    commit('SET_ERROR', {
+      message: 'Error al guardar nuevo producto.',
+      status: e.response.status
+    })
+  }
+}
