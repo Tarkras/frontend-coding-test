@@ -144,14 +144,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions('promotions', ['fetchProducts']),
+    ...mapActions('promotions', ['fetchProducts', 'postNewPromotion']),
     submit () {
-      console.log(this.promotion)
       this.$v.$touch()
       if (this.$v.$invalid) {
         console.log('ERROR')
       } else {
-        console.log('SEND')
+        this.postNewPromotion(this.promotion)
       }
     }
   },

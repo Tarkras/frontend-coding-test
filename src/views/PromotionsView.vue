@@ -75,7 +75,7 @@ export default {
           label: 'Filtrar por valoración menor de 2 estrellas',
           value: {
             field: 'rating',
-            value: 4,
+            value: 2,
             type: '<'
           }
         }
